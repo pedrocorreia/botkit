@@ -117,7 +117,7 @@ controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', funct
     });
 });
 
-controller.hears(['jola'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['jola','Jola'], 'message_received', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
