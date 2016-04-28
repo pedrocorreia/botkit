@@ -179,7 +179,7 @@ controller.hears(['mamas','boobs','marufas','marmelinhos'], 'direct_message,dire
 
 });
 
-controller.hears(['cu','peida','marufas','marmelinhos'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['cu','peida','marufas','marmelinhos','ass'], 'direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
