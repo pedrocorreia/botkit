@@ -71,9 +71,10 @@ if (!process.env.token) {
 
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
+var os = require('http');
 
 var controller = Botkit.slackbot({
-    debug: true,
+    debug: true
 });
 
 var bot = controller.spawn({
@@ -117,7 +118,25 @@ controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', funct
     });
 });
 
-controller.hears(['jola','Jola'], 'message_received', function(bot, message) {
+controller.hears(['jola'], 'direct_message,direct_mention,mention', function(bot, message) {
+
+    bot.api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'robot_face',
+    }, function(err, res) {
+        if (err) {
+            bot.botkit.log('Failed to add emoji reaction :(', err);
+        }
+    });
+
+
+    controller.storage.users.get(message.user, function(err, user) {
+        bot.reply(message, 'You fucking drunk!!')
+    });
+});
+
+controller.hears(['jola'], 'ambient', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -133,6 +152,56 @@ controller.hears(['jola','Jola'], 'message_received', function(bot, message) {
     controller.storage.users.get(message.user, function(err, user) {
         bot.reply(message, ':beers:')
     });
+});
+
+controller.hears(['mamas','boobs','marufas','marmelinhos'], 'direct_message,direct_mention,mention', function(bot, message) {
+
+    bot.api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'robot_face',
+    }, function(err, res) {
+        if (err) {
+            bot.botkit.log('Failed to add emoji reaction :(', err);
+        }
+    });
+
+    var http = require('request');
+    var boobs = 'http://media.oboobs.ru/';
+    var pic, json;
+    
+    http.get('http://api.oboobs.ru/noise/1',function(error,response,body){
+        json = JSON.parse(response.body);
+        pic = json[0].preview;
+        bot.reply(message,boobs + pic);
+    });
+
+
+});
+
+controller.hears(['cu','peida','marufas','marmelinhos'], 'direct_message,direct_mention,mention', function(bot, message) {
+
+    bot.api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'robot_face',
+    }, function(err, res) {
+        if (err) {
+            bot.botkit.log('Failed to add emoji reaction :(', err);
+        }
+    });
+
+    var http = require('request');
+    var boobs = 'http://media.obutts.ru/';
+    var pic, json;
+    
+    http.get('http://api.obutts.ru/noise/1',function(error,response,body){
+        json = JSON.parse(response.body);
+        pic = json[0].preview;
+        bot.reply(message,boobs + pic);
+    });
+
+
 });
 
 // controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
