@@ -156,7 +156,8 @@ controller.hears(['(.*)'],'ambient,direct_message,direct_mention,mention',functi
             });
             bot.reply(message,'*' + hashtag + ' #fonseca*');
         }
-    } else if ( rng < 5 ) {
+    } else {
+        if ( rng < 5 ) {
             var hashtag = '#';
             var msg = message.text.split(' ');
             msg.map(function(str){
@@ -164,6 +165,7 @@ controller.hears(['(.*)'],'ambient,direct_message,direct_mention,mention',functi
             });
             bot.reply(message,'*' + hashtag + ' #fonseca*');
         }
+    }
 });
 
 // controller.hears(['what is my name', 'who am i'], 'direct_message,direct_mention,mention', function(bot, message) {
