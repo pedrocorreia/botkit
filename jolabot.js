@@ -145,22 +145,25 @@ controller.hears(['call me (.*)', 'my name is (.*)','im (.*)'], 'direct_message,
 controller.hears(['(.*)'],'ambient,direct_message,direct_mention,mention',function(bot, message) {
 
 
+    var rng = Math.floor(Math.random() * 100);
 
     if ( message.user === 'U1480UT6U' ) {
-    // if ( message.user === 'U146XCM70' ) {
-
-        var rng = Math.floor(Math.random() * 100)
-
-        if ( rng < 5 ) {
+        if ( rng < 10 ) {
             var hashtag = '#';
             var msg = message.text.split(' ');
             msg.map(function(str){
                 hashtag += str.charAt(0).toUpperCase() + str.substr(1,str.length).toLowerCase();
             });
-
             bot.reply(message,'*' + hashtag + ' #fonseca*');
         }
-    }
+    } else if ( rng < 5 ) {
+            var hashtag = '#';
+            var msg = message.text.split(' ');
+            msg.map(function(str){
+                hashtag += str.charAt(0).toUpperCase() + str.substr(1,str.length).toLowerCase();
+            });
+            bot.reply(message,'*' + hashtag + ' #fonseca*');
+        }
 });
 
 // controller.hears(['what is my name', 'who am i'], 'direct_message,direct_mention,mention', function(bot, message) {
