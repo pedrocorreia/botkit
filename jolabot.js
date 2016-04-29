@@ -77,7 +77,7 @@ controller.hears(['jola'], 'ambient', function(bot, message) {
     });
 });
 
-controller.hears(['mamas','boobs','marufas','marmelinhos','tetas','tits','pixie pillows','fun bags'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['mama[s]*','boob[s]*','marufa[s]*','marmel[os|inhos]','teta[s]*','tit[s]*','pixie pillow[s]*','fun bag[s]*','bazongas','the twins'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -102,7 +102,7 @@ controller.hears(['mamas','boobs','marufas','marmelinhos','tetas','tits','pixie 
 
 });
 
-controller.hears(['cu','peida','ass','rabo','nalgas','pandeiro','cagueiro'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['c[ú|u]','peida','ass','arse','butt','rabo','nalgas','pandeiro','cagueiro','pooper','m[á|a]quina de fazer c[ó|o]c[ó|o]'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
