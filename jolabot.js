@@ -77,7 +77,7 @@ controller.hears(['jola'], 'ambient', function(bot, message) {
     });
 });
 
-controller.hears(['mama[s]*(:[a-zA-Z ]+)?','boob[s]*(:[a-zA-Z ]+)','marufa[s]*(:[a-zA-Z ]+)','marmel[os|inhos](:[a-zA-Z ]+)','teta[s]*(:[a-zA-Z ]+)','tit[s]*(:[a-zA-Z ]+)','pixie pillow[s]*(:[a-zA-Z ]+)','fun bag[s]*(:[a-zA-Z ]+)','bazonga[s]*(:[a-zA-Z ]+)','the twins'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['mama[s]*([ ]?:[ ]?[a-zA-Z ]+)?','boob[s]*([ ]?:[ ]?[a-zA-Z ]+)','marufa[s]*([ ]?:[ ]?[a-zA-Z ]+)','marmel[os|inhos]([ ]?:[ ]?[a-zA-Z ]+)','teta[s]*([ ]?:[ ]?[a-zA-Z ]+)','tit[s]*([ ]?:[ ]?[a-zA-Z ]+)','pixie pillow[s]*([ ]?:[ ]?[a-zA-Z ]+)','fun bag[s]*([ ]?:[ ]?[a-zA-Z ]+)','bazonga[s]*([ ]?:[ ]?[a-zA-Z ]+)','the twins'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -119,7 +119,7 @@ controller.hears(['mama[s]*(:[a-zA-Z ]+)?','boob[s]*(:[a-zA-Z ]+)','marufa[s]*(:
 
 });
 
-controller.hears(['c[ú|u](:[a-zA-Z ]+)?','peida(:[a-zA-Z ]+)?','ass(:[a-zA-Z ]+)?','arse(:[a-zA-Z ]+)?','butt(:[a-zA-Z ]+)?','rabo(:[a-zA-Z ]+)?','nalgas(:[a-zA-Z ]+)?','pandeiro(:[a-zA-Z ]+)?','cagueiro(:[a-zA-Z ]+)?','pooper(:[a-zA-Z ]+)?','m[á|a]quina de fazer c[ó|o]c[ó|o](:[a-zA-Z ]+)?'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['c[ú|u]([ ]?:[ ]?[a-zA-Z ]+)?','peida([ ]?:[ ]?[a-zA-Z ]+)?','ass([ ]?:[ ]?[a-zA-Z ]+)?','arse([ ]?:[ ]?[a-zA-Z ]+)?','butt([ ]?:[ ]?[a-zA-Z ]+)?','rabo([ ]?:[ ]?[a-zA-Z ]+)?','nalgas([ ]?:[ ]?[a-zA-Z ]+)?','pandeiro([ ]?:[ ]?[a-zA-Z ]+)?','cagueiro([ ]?:[ ]?[a-zA-Z ]+)?','pooper([ ]?:[ ]?[a-zA-Z ]+)?','m[á|a]quina de fazer c[ó|o]c[ó|o]([ ]?:[ ]?[a-zA-Z ]+)?'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
