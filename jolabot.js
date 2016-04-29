@@ -97,23 +97,32 @@ controller.hears(['mama[s]*([ ]?:[ ]?[a-zA-Z ]+)?','boob[s]*([ ]?:[ ]?[a-zA-Z ]+
     }
     var boobs = 'http://media.oboobs.ru/';
     var http = require('request');
-    var pic, json;
+    var pic, json, name;
     
     http.get(apiUrl,function(error,response,body){
         json = JSON.parse(response.body);
 
-        if (json.length == 0) {
-            bot.reply(message,'Sorry. No boobs for that search.');
-        } else if (json.length > 1) {
-            var rnd = Math.floor(Math.random() * json.length);
-            pic = json[rnd].preview;
-            name = json[rnd].model;
-            bot.reply(message,'*' + name + '*');
-            bot.reply(message,boobs + pic);
-        } else {
-            pic = json[0].preview;
-            bot.reply(message,boobs + pic);
+        switch (true) {
+            case ( json.length == 0 ): 
+                bot.reply(message,'Sorry. No boobs for that search.');
+                break;
+            case ( json.length > 1 ):
+                var rnd = Math.floor(Math.random() * json.length);
+                pic = json[rnd].preview;
+                name = json[rnd].model;
+                bot.reply(message,'*' + name + '*');
+                bot.reply(message, boobs + pic);
+                break;
+            case ( json.length == 1 ):
+                pic = json[0].preview;
+                name = json[0].model;
+                if(name !== undefined) {
+                    bot.reply(message, name);
+                    bot.reply(message,butt + pic);
+                }
+                break;
         }
+
     });
 
 
@@ -131,18 +140,6 @@ controller.hears(['c[ú|u]([ ]?:[ ]?[a-zA-Z ]+)?','peida([ ]?:[ ]?[a-zA-Z ]+)?',
         }
     });
 
-    // var http = require('request');
-    // var boobs = 'http://media.obutts.ru/';
-    // var pic, json;
-    
-    // http.get('http://api.obutts.ru/noise/1',function(error,response,body){
-    //     json = JSON.parse(response.body);
-    //     pic = json[0].preview;
-    //     bot.reply(message,boobs + pic);
-    // });
-
-
-
     if ( message.match[1] !== undefined ) {
         var model = message.match[1];
         var apiUrl = 'http://api.obutts.ru/butts/model/' + model.substr(1,model.length);
@@ -151,23 +148,32 @@ controller.hears(['c[ú|u]([ ]?:[ ]?[a-zA-Z ]+)?','peida([ ]?:[ ]?[a-zA-Z ]+)?',
     }
     var butt = 'http://media.obutts.ru/';
     var http = require('request');
-    var pic, json;
+    var pic, json, name;
     
     http.get(apiUrl,function(error,response,body){
         json = JSON.parse(response.body);
-
-        if (json.length == 0) {
-            bot.reply(message,'Sorry. No butts for that search.');
-        } else if (json.length > 1) {
-            var rnd = Math.floor(Math.random() * json.length);
-            pic = json[rnd].preview;
-            name = json[rnd].model;
-            bot.reply(message,'*' + name + '*');
-            bot.reply(message,butt + pic);
-        } else {
-            pic = json[0].preview;
-            bot.reply(message,butt + pic);
+        
+        switch (true) {
+            case ( json.length == 0 ): 
+                bot.reply(message,'Sorry. No butts for that search.');
+                break;
+            case ( json.length > 1 ):
+                var rnd = Math.floor(Math.random() * json.length);
+                pic = json[rnd].preview;
+                name = json[rnd].model;
+                bot.reply(message,'*' + name + '*');
+                bot.reply(message,butt + pic);
+                break;
+            case ( json.length == 1 ):
+                pic = json[0].preview;
+                name = json[0].model;
+                if(name !== undefined) {
+                    bot.reply(message, name);
+                    bot.reply(message,butt + pic);
+                }
+                break;
         }
+
     });
 
 });
