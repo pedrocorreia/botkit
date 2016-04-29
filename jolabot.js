@@ -77,7 +77,7 @@ controller.hears(['jola'], 'ambient', function(bot, message) {
     });
 });
 
-controller.hears(['mama[s]*','boob[s]*','marufa[s]*','marmel[os|inhos]','teta[s]*','tit[s]*','pixie pillow[s]*','fun bag[s]*','bazongas','the twins'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['mama[s]*(:[a-zA-Z ]+)?','boob[s]*(:[a-zA-Z ]+)','marufa[s]*(:[a-zA-Z ]+)','marmel[os|inhos](:[a-zA-Z ]+)','teta[s]*(:[a-zA-Z ]+)','tit[s]*(:[a-zA-Z ]+)','pixie pillow[s]*(:[a-zA-Z ]+)','fun bag[s]*(:[a-zA-Z ]+)','bazonga[s]*(:[a-zA-Z ]+)','the twins'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -89,20 +89,37 @@ controller.hears(['mama[s]*','boob[s]*','marufa[s]*','marmel[os|inhos]','teta[s]
         }
     });
 
-    var http = require('request');
+    if ( message.match[1] !== undefined ) {
+        var model = message.match[1];
+        var apiUrl = 'http://api.oboobs.ru/boobs/model/' + model.substr(1,model.length);
+    } else {
+        var apiUrl = 'http://api.oboobs.ru/noise/1';
+    }
     var boobs = 'http://media.oboobs.ru/';
+    var http = require('request');
     var pic, json;
     
-    http.get('http://api.oboobs.ru/noise/1',function(error,response,body){
+    http.get(apiUrl,function(error,response,body){
         json = JSON.parse(response.body);
-        pic = json[0].preview;
-        bot.reply(message,boobs + pic);
+
+        if (json.length == 0) {
+            bot.reply(message,'Sorry. No boobs for that search.');
+        } else if (json.length > 1) {
+            var rnd = Math.floor(Math.random() * json.length);
+            pic = json[rnd].preview;
+            name = json[rnd].model;
+            bot.reply(message,'*' + name + '*');
+            bot.reply(message,boobs + pic);
+        } else {
+            pic = json[0].preview;
+            bot.reply(message,boobs + pic);
+        }
     });
 
 
 });
 
-controller.hears(['c[ú|u]','peida','ass','arse','butt','rabo','nalgas','pandeiro','cagueiro','pooper','m[á|a]quina de fazer c[ó|o]c[ó|o]'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['c[ú|u](:[a-zA-Z ]+)?','peida(:[a-zA-Z ]+)?','ass(:[a-zA-Z ]+)?','arse(:[a-zA-Z ]+)?','butt(:[a-zA-Z ]+)?','rabo(:[a-zA-Z ]+)?','nalgas(:[a-zA-Z ]+)?','pandeiro(:[a-zA-Z ]+)?','cagueiro(:[a-zA-Z ]+)?','pooper(:[a-zA-Z ]+)?','m[á|a]quina de fazer c[ó|o]c[ó|o](:[a-zA-Z ]+)?'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -114,14 +131,43 @@ controller.hears(['c[ú|u]','peida','ass','arse','butt','rabo','nalgas','pandeir
         }
     });
 
+    // var http = require('request');
+    // var boobs = 'http://media.obutts.ru/';
+    // var pic, json;
+    
+    // http.get('http://api.obutts.ru/noise/1',function(error,response,body){
+    //     json = JSON.parse(response.body);
+    //     pic = json[0].preview;
+    //     bot.reply(message,boobs + pic);
+    // });
+
+
+
+    if ( message.match[1] !== undefined ) {
+        var model = message.match[1];
+        var apiUrl = 'http://api.obutts.ru/butts/model/' + model.substr(1,model.length);
+    } else {
+        var apiUrl = 'http://api.obutts.ru/noise/1';
+    }
+    var butt = 'http://media.obutts.ru/';
     var http = require('request');
-    var boobs = 'http://media.obutts.ru/';
     var pic, json;
     
-    http.get('http://api.obutts.ru/noise/1',function(error,response,body){
+    http.get(apiUrl,function(error,response,body){
         json = JSON.parse(response.body);
-        pic = json[0].preview;
-        bot.reply(message,boobs + pic);
+
+        if (json.length == 0) {
+            bot.reply(message,'Sorry. No butts for that search.');
+        } else if (json.length > 1) {
+            var rnd = Math.floor(Math.random() * json.length);
+            pic = json[rnd].preview;
+            name = json[rnd].model;
+            bot.reply(message,'*' + name + '*');
+            bot.reply(message,butt + pic);
+        } else {
+            pic = json[0].preview;
+            bot.reply(message,butt + pic);
+        }
     });
 
 });
