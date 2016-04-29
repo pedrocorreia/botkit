@@ -1,69 +1,3 @@
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-           ______     ______     ______   __  __     __     ______
-          /\  == \   /\  __ \   /\__  _\ /\ \/ /    /\ \   /\__  _\
-          \ \  __<   \ \ \/\ \  \/_/\ \/ \ \  _"-.  \ \ \  \/_/\ \/
-           \ \_____\  \ \_____\    \ \_\  \ \_\ \_\  \ \_\    \ \_\
-            \/_____/   \/_____/     \/_/   \/_/\/_/   \/_/     \/_/
-
-
-This is a sample Slack bot built with Botkit.
-
-This bot demonstrates many of the core features of Botkit:
-
-* Connect to Slack using the real time API
-* Receive messages based on "spoken" patterns
-* Reply to messages
-* Use the conversation system to ask questions
-* Use the built in storage system to store and retrieve information
-  for a user.
-
-# RUN THE BOT:
-
-  Get a Bot token from Slack:
-
-    -> http://my.slack.com/services/new/bot
-
-  Run your bot from the command line:
-
-    token=<MY TOKEN> node slack_bot.js
-
-# USE THE BOT:
-
-  Find your bot inside Slack to send it a direct message.
-
-  Say: "Hello"
-
-  The bot will reply "Hello!"
-
-  Say: "who are you?"
-
-  The bot will tell you its name, where it running, and for how long.
-
-  Say: "Call me <nickname>"
-
-  Tell the bot your nickname. Now you are friends.
-
-  Say: "who am I?"
-
-  The bot will tell you your nickname, if it knows one for you.
-
-  Say: "shutdown"
-
-  The bot will ask if you are sure, and then shut itself down.
-
-  Make sure to invite your bot into other channels using /invite @<my bot>!
-
-# EXTEND THE BOT:
-
-  Botkit has many features for building cool and useful bots!
-
-  Read all about it here:
-
-    -> http://howdy.ai/botkit
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-
 if (!process.env.token) {
     console.log('Error: Specify token in environment');
     process.exit(1);
@@ -82,7 +16,8 @@ var bot = controller.spawn({
 }).startRTM();
 
 
-controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['hello', 'hi','olá','mekié','oi'], 'direct_message,direct_mention,mention', function(bot, message) {
+
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -96,26 +31,14 @@ controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', funct
 
 
     controller.storage.users.get(message.user, function(err, user) {
-        bot.reply(message, 'Hi meatbag!!')
-    });
-});
-
-controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'robot_face',
-    }, function(err, res) {
-        if (err) {
-            bot.botkit.log('Failed to add emoji reaction :(', err);
+        if (user && user.name){
+            var answers = ['Hi, meatbag!','Hi ' + user.name, 'Hello peasant.', "Can't you see im busy?"];
+        } else {
+            var answers = ['And who the fuck are you?'];
         }
+        bot.reply(message, answers[Math.floor(Math.random() * answers.length)]);
     });
 
-
-    controller.storage.users.get(message.user, function(err, user) {
-        bot.reply(message, 'Hi meatbag!!')
-    });
 });
 
 controller.hears(['jola'], 'direct_message,direct_mention,mention', function(bot, message) {
@@ -154,7 +77,7 @@ controller.hears(['jola'], 'ambient', function(bot, message) {
     });
 });
 
-controller.hears(['mamas','boobs','marufas','marmelinhos'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['mamas','boobs','marufas','marmelinhos','tetas','tits','pixie pillows','fun bags'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -179,7 +102,7 @@ controller.hears(['mamas','boobs','marufas','marmelinhos'], 'direct_message,dire
 
 });
 
-controller.hears(['cu','peida','marufas','marmelinhos','ass'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['cu','peida','ass','rabo','nalgas','pandeiro','cagueiro'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -201,23 +124,44 @@ controller.hears(['cu','peida','marufas','marmelinhos','ass'], 'direct_message,d
         bot.reply(message,boobs + pic);
     });
 
-
 });
 
-// controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-//     var name = message.match[1];
-//     controller.storage.users.get(message.user, function(err, user) {
-//         if (!user) {
-//             user = {
-//                 id: message.user,
-//             };
-//         }
-//         user.name = name;
-//         controller.storage.users.save(user, function(err, id) {
-//             bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
-//         });
-//     });
-// });
+controller.hears(['call me (.*)', 'my name is (.*)','im (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+    var name = message.match[1];
+    controller.storage.users.get(message.user, function(err, user) {
+        if (!user) {
+            user = {
+                id: message.user,
+            };
+        }
+        user.name = name;
+        controller.storage.users.save(user, function(err, id) {
+            var answers = ['Got it. I will call you ' + user.name + ' from now on.',"I'll try to remember that, meatbag."]
+            bot.reply(message, answers[Math.floor(Math.random() * answers.length)]);
+        });
+    });
+});
+
+controller.hears(['(.*)'],'ambient,direct_message,direct_mention,mention',function(bot, message) {
+
+
+
+    if ( message.user === 'U1480UT6U' ) {
+    // if ( message.user === 'U146XCM70' ) {
+
+        var rng = Math.floor(Math.random() * 100)
+
+        if ( rng < 5 ) {
+            var hashtag = '#';
+            var msg = message.text.split(' ');
+            msg.map(function(str){
+                hashtag += str.charAt(0).toUpperCase() + str.substr(1,str.length).toLowerCase();
+            });
+
+            bot.reply(message,'*' + hashtag + ' #fonseca*');
+        }
+    }
+});
 
 // controller.hears(['what is my name', 'who am i'], 'direct_message,direct_mention,mention', function(bot, message) {
 
